@@ -8,7 +8,7 @@ if (!isset($_SESSION['username'])) {
 }
 
   $count = mysqli_query($dbconnect, "SELECT * FROM tb_count WHERE id =(SELECT MAX(id) FROM tb_count)");
-
+  $history = mysqli_query($dbconnect, "SELECT * FROM tb_count");
   $sql = mysqli_query($dbconnect, "SELECT * FROM tb_kontrol");
   while($row = mysqli_fetch_assoc($sql)){
 ?>
@@ -24,7 +24,8 @@ if (!isset($_SESSION['username'])) {
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/css/bootstrap.min.css"
         integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous" />
-
+    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.3.4/css/buttons.bootstrap4.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.2/css/dataTables.bootstrap4.min.css">
     <title>IMS - Politeknik Negeri Ujung Padang</title>
 </head>
 
@@ -97,6 +98,37 @@ if (!isset($_SESSION['username'])) {
                     </div>
                 </div>
             </div>
+            <div class="col-md-8 mt-4">
+                <div class="card">
+                    <div class="card-header">
+                        <h5>Riwayat Deteksi Rotator Motor</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-bordered" id="datatable" width="100%" cellspacing="0">
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Count</th>
+                                        <th>Tanggal</th>
+                                        <th>Waktu</th>
+                                    </tr>
+                                </thead>
+                                <?php foreach($history as $data) : ?>
+                                <tbody>
+                                    <tr>
+                                        <td><?= $data['id'] ?></td>
+                                        <td><?= $data['count'] ?></td>
+                                        <td><?= date('d F Y', strtotime($data['time'])) ?></td>
+                                        <td><?= date('h:i:s A', strtotime($data['time'])) ?></td>
+                                    </tr>
+                                </tbody>
+                                <?php endforeach; ?>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -138,6 +170,11 @@ if (!isset($_SESSION['username'])) {
     <!-- end main -->
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script>
+    $(document).ready(function() {
+        $('#datatable').DataTable();
+    });
+    </script>
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
         integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous">
     </script>
@@ -147,6 +184,16 @@ if (!isset($_SESSION['username'])) {
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/js/bootstrap.min.js"
         integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous">
     </script>
+    <script src="https://cdn.datatables.net/1.13.2/js/jquery.dataTables.min.js" type="text/javascript"></script>
+    <script src="https://cdn.datatables.net/1.13.2/js/dataTables.bootstrap4.min.js" type="text/javascript"></script>
+    <script src="https://cdn.datatables.net/buttons/2.3.4/js/dataTables.buttons.min.js" type="text/javascript"></script>
+    <script src="https://cdn.datatables.net/buttons/2.3.4/js/buttons.bootstrap4.min.js" type="text/javascript"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js" type="text/javascript"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js" type="text/javascript"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js" type="text/javascript"></script>
+    <script src="https://cdn.datatables.net/buttons/2.3.4/js/buttons.html5.min.js" type="text/javascript"></script>
+    <script src="https://cdn.datatables.net/buttons/2.3.4/js/buttons.print.min.js" type="text/javascript"></script>
+    <script src="https://cdn.datatables.net/buttons/2.3.4/js/buttons.colVis.min.js" type="text/javascript"></script>
 </body>
 
 </html>
