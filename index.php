@@ -30,6 +30,7 @@ if (!isset($_SESSION['username'])) {
 </head>
 
 <body>
+
     <!-- navbar -->
     <nav class="navbar navbar-light bg-light">
         <div class="container-fluid">
@@ -53,8 +54,9 @@ if (!isset($_SESSION['username'])) {
                         <span id="countdown" class="font-weight-bold"
                             style="font-weight: bold; font-size: 48px">00.00</span>
                         <br>
-                        <Button class="btn btn-success" onclick="startTimer();">Start Timer</Button>
-                        <Button class="btn btn-danger" onclick="stopTimer();">Stop Timer</Button>
+                        <a class="btn btn-success" href="timer.php?timer=1&state=1" onclick="reloadP()">Start
+                            Timer</a>
+                        <a class="btn btn-danger" href="timer.php?timer=1&state=0">Stop Timer</a>
                     </div>
                 </div>
             </div>
@@ -132,18 +134,30 @@ if (!isset($_SESSION['username'])) {
         </div>
     </div>
 
-    <?php 
-    }   
-// }
-?>
+    <script>
+
+    </script>
     <script>
     var timeInSecs;
     var ticker;
+    var timer = <?= $row['time'] ?>;
+
+    console.log(timer);
+
+
+    function timerControl() {
+        if (timer == '1') {
+            startTimer();
+        } else {
+            stopTimer();
+        }
+    }
 
     function startTimer(secs) {
         timeInSecs = parseInt(25);
         ticker = setInterval("tick()", 1000);
     }
+
 
     function stopTimer(secs) {
         timeInSecs = parseInt(0);
@@ -165,8 +179,25 @@ if (!isset($_SESSION['username'])) {
 
         document.getElementById("countdown").innerHTML = pretty;
     }
-    // 4 minutes in seconds
+
+    window.onload = function() {
+        var reloading = sessionStorage.getItem("reloading");
+        if (reloading) {
+            sessionStorage.removeItem("reloading");
+            timerControl();
+        }
+    }
+
+    function reloadP() {
+        sessionStorage.setItem("reloading", "true");
+        document.location.reload();
+    }
     </script>
+
+    <?php 
+    }   
+// }
+?>
     <!-- end main -->
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
@@ -184,6 +215,7 @@ if (!isset($_SESSION['username'])) {
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/js/bootstrap.min.js"
         integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous">
     </script>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
     <script src="https://cdn.datatables.net/1.13.2/js/jquery.dataTables.min.js" type="text/javascript"></script>
     <script src="https://cdn.datatables.net/1.13.2/js/dataTables.bootstrap4.min.js" type="text/javascript"></script>
     <script src="https://cdn.datatables.net/buttons/2.3.4/js/dataTables.buttons.min.js" type="text/javascript"></script>

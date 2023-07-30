@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 28 Jul 2023 pada 16.17
+-- Waktu pembuatan: 30 Jul 2023 pada 15.18
 -- Versi server: 10.4.28-MariaDB
 -- Versi PHP: 8.2.4
 
@@ -38,9 +38,7 @@ CREATE TABLE `tb_count` (
 --
 
 INSERT INTO `tb_count` (`id`, `count`, `time`) VALUES
-(1, 22, '2023-07-28 09:05:26'),
-(2, 41, '2023-07-28 09:32:54'),
-(3, 64, '2023-07-28 09:41:22');
+(14, 22, '2023-07-30 12:55:31');
 
 -- --------------------------------------------------------
 
@@ -50,15 +48,16 @@ INSERT INTO `tb_count` (`id`, `count`, `time`) VALUES
 
 CREATE TABLE `tb_kontrol` (
   `token` varchar(50) NOT NULL,
-  `motor` int(1) NOT NULL
+  `motor` int(1) NOT NULL,
+  `time` int(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data untuk tabel `tb_kontrol`
 --
 
-INSERT INTO `tb_kontrol` (`token`, `motor`) VALUES
-('12345', 0);
+INSERT INTO `tb_kontrol` (`token`, `motor`, `time`) VALUES
+('12345', 1, 1);
 
 -- --------------------------------------------------------
 
@@ -104,7 +103,7 @@ ALTER TABLE `tb_users`
 -- AUTO_INCREMENT untuk tabel `tb_count`
 --
 ALTER TABLE `tb_count`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT untuk tabel `tb_users`
