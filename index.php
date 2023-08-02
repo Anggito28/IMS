@@ -48,14 +48,14 @@ while ($row = mysqli_fetch_assoc($sql)) {
     <div class="container">
         <div class="row justify-content-center mt-5">
             <div class="col-md-4 mb-4">
-                <div class="card pb-2">
-                    <div class="card-body m-3 text-center">
+                <div class="card pb-4">
+                    <div class="card-body mb-5 text-center">
                         <h4>Time Process</h4>
                         <span id="countdown" class="font-weight-bold"
                             style="font-weight: bold; font-size: 48px">00.00</span>
                         <br>
-                        <a class="btn btn-success" href="timer.php?timer=1&state=1" onclick="reloadP()">ON</a>
-                        <a class="btn btn-danger" href="timer.php?timer=1&state=0">OFF</a>
+                        <a class="btn btn-success" href="timer.php?timer=1&state=1" onclick="reloadP()">START</a>
+                        <a class="btn btn-danger" href="timer.php?timer=1&state=0">STOP</a>
                     </div>
                 </div>
             </div>
@@ -63,15 +63,21 @@ while ($row = mysqli_fetch_assoc($sql)) {
                 <div class="card pb-5">
                     <div class="card-body m-3 text-center">
                         <h4>Count</h4>
-                        <?php
-                            if ($row['time'] == '0') { ?>
-                        <span id="count" class="font-weight-bold" style="font-weight: bold; font-size: 48px">0</span>
-                        <?php } else { ?>
-                        <?php foreach ($count as $data) : ?>
-                        <span id="count" class="font-weight-bold"
-                            style="font-weight: bold; font-size: 48px"><?= $data['count'] ?></span>
-                        <?php endforeach; ?>
-                        <?php   } ?>
+                        <div>
+                            <?php
+                                if ($row['time'] == '0') { ?>
+                            <span id="count" class="font-weight-bold"
+                                style="font-weight: bold; font-size: 48px">0</span>
+                            <?php } else { ?>
+                            <?php foreach ($count as $data) : ?>
+                            <span id="count" class="font-weight-bold"
+                                style="font-weight: bold; font-size: 48px"><?= $data['count'] ?></span>
+                            <?php endforeach; ?>
+                            <?php   } ?>
+                        </div>
+                        <div>
+                            <a class="btn btn-danger" href="timer.php?timer=1&state=0">Reset</a>
+                        </div>
                     </div>
                 </div>
             </div>
