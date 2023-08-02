@@ -1,16 +1,16 @@
-<?php 
-  include 'conection.php';
+<?php
+include 'conection.php';
 
-  session_start();
- 
+session_start();
+
 if (!isset($_SESSION['username'])) {
     header("Location: index.php");
 }
 
-  $count = mysqli_query($dbconnect, "SELECT * FROM tb_count WHERE id =(SELECT MAX(id) FROM tb_count)");
-  $history = mysqli_query($dbconnect, "SELECT * FROM tb_count");
-  $sql = mysqli_query($dbconnect, "SELECT * FROM tb_kontrol");
-  while($row = mysqli_fetch_assoc($sql)){
+$count = mysqli_query($dbconnect, "SELECT * FROM tb_count WHERE id =(SELECT MAX(id) FROM tb_count)");
+$history = mysqli_query($dbconnect, "SELECT * FROM tb_count");
+$sql = mysqli_query($dbconnect, "SELECT * FROM tb_kontrol");
+while ($row = mysqli_fetch_assoc($sql)) {
 ?>
 
 <!DOCTYPE html>
@@ -54,9 +54,8 @@ if (!isset($_SESSION['username'])) {
                         <span id="countdown" class="font-weight-bold"
                             style="font-weight: bold; font-size: 48px">00.00</span>
                         <br>
-                        <a class="btn btn-success" href="timer.php?timer=1&state=1" onclick="reloadP()">Start
-                            Timer</a>
-                        <a class="btn btn-danger" href="timer.php?timer=1&state=0">Stop Timer</a>
+                        <a class="btn btn-success" href="timer.php?timer=1&state=1" onclick="reloadP()">ON</a>
+                        <a class="btn btn-danger" href="timer.php?timer=1&state=0">OFF</a>
                     </div>
                 </div>
             </div>
@@ -64,10 +63,15 @@ if (!isset($_SESSION['username'])) {
                 <div class="card pb-5">
                     <div class="card-body m-3 text-center">
                         <h4>Count</h4>
-                        <?php foreach($count as $data) : ?>
+                        <?php
+                            if ($row['time'] == '0') { ?>
+                        <span id="count" class="font-weight-bold" style="font-weight: bold; font-size: 48px">0</span>
+                        <?php } else { ?>
+                        <?php foreach ($count as $data) : ?>
                         <span id="count" class="font-weight-bold"
                             style="font-weight: bold; font-size: 48px"><?= $data['count'] ?></span>
                         <?php endforeach; ?>
+                        <?php   } ?>
                     </div>
                 </div>
             </div>
@@ -87,14 +91,15 @@ if (!isset($_SESSION['username'])) {
                             </div>
                             <div class="col-md-6 text-center">
                                 <h4>Status Motor</h4>
-                                <span id="Status" class="font-weight-bold" style="font-weight: bold; font-size: 48px"><?php
-                                    if($row['motor'] == '0'){
-                                        $state = "OFF";
-                                    }else {
-                                        $state = "ON";
-                                    }
-                                    echo $state;
-                                    ?></span>
+                                <span id="Status" class="font-weight-bold"
+                                    style="font-weight: bold; font-size: 48px"><?php
+                                                                                                                            if ($row['motor'] == '0') {
+                                                                                                                                $state = "OFF";
+                                                                                                                            } else {
+                                                                                                                                $state = "ON";
+                                                                                                                            }
+                                                                                                                            echo $state;
+                                                                                                                            ?></span>
                             </div>
                         </div>
                     </div>
@@ -116,7 +121,7 @@ if (!isset($_SESSION['username'])) {
                                         <th>Waktu</th>
                                     </tr>
                                 </thead>
-                                <?php foreach($history as $data) : ?>
+                                <?php foreach ($history as $data) : ?>
                                 <tbody>
                                     <tr>
                                         <td><?= $data['id'] ?></td>
@@ -194,10 +199,10 @@ if (!isset($_SESSION['username'])) {
     }
     </script>
 
-    <?php 
-    }   
+    <?php
+}
 // }
-?>
+    ?>
     <!-- end main -->
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
