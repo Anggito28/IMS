@@ -47,9 +47,9 @@ while ($row = mysqli_fetch_assoc($sql)) {
 
     <div class="container">
         <div class="row justify-content-center mt-5">
-            <div class="col-md-4 mb-4">
-                <div class="card pb-4">
-                    <div class="card-body mb-5 text-center">
+            <div class="col-md-4 mb-3">
+                <div class="card pb-3">
+                    <div class="card-body mb-4 text-center">
                         <h4>Time Process</h4>
                         <span id="countdown" class="font-weight-bold"
                             style="font-weight: bold; font-size: 48px">00.00</span>
@@ -61,11 +61,11 @@ while ($row = mysqli_fetch_assoc($sql)) {
             </div>
             <div class="col-md-4 mb-4 ">
                 <div class="card pb-5">
-                    <div class="card-body m-3 text-center">
+                    <div class="card-body text-center">
                         <h4>Count</h4>
                         <div>
                             <?php
-                                if ($row['time'] == '0') { ?>
+                                if ($row['aktifasi'] == '0') { ?>
                             <span id="count" class="font-weight-bold"
                                 style="font-weight: bold; font-size: 48px">0</span>
                             <?php } else { ?>
@@ -76,7 +76,7 @@ while ($row = mysqli_fetch_assoc($sql)) {
                             <?php   } ?>
                         </div>
                         <div>
-                            <a class="btn btn-danger" href="timer.php?timer=1&state=0">Reset</a>
+                            <a class="btn btn-danger" href="aktifasi.php?aksi=1&state=0">Reset</a>
                         </div>
                     </div>
                 </div>
@@ -88,10 +88,10 @@ while ($row = mysqli_fetch_assoc($sql)) {
                             <div class="col-md-6">
                                 <h4>Control Motor</h4>
                                 <br />
-                                <a href="aksi.php?motor=1&state=1" class="btn btn-success">
+                                <a href="aksi.php?motor=1&state=1&aktif=0" class="btn btn-success">
                                     Motor ON
                                 </a>
-                                <a href="aksi.php?motor=1&state=0" class="btn btn-danger">
+                                <a href="aksi.php?motor=1&state=0&aktif=1" class="btn btn-danger">
                                     Motor OFF
                                 </a>
                             </div>
@@ -216,6 +216,16 @@ while ($row = mysqli_fetch_assoc($sql)) {
     $(document).ready(function() {
         $('#datatable').DataTable();
     });
+    </script>
+    <script>
+    function toggleElement() {
+        var x = document.getElementById("count");
+        if (x.style.display === "none") {
+            x.style.display = "block";
+        } else {
+            x.style.display = "none";
+        }
+    }
     </script>
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
         integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous">
