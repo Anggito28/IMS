@@ -14,11 +14,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $safe_key = mysqli_real_escape_string($dbconnect, $key);
 
         $sql = mysqli_query($dbconnect, "SELECT * FROM tb_kontrol WHERE token='$safe_key'");
+        $count = mysqli_query($dbconnect, "SELECT * FROM tb_count WHERE id =(SELECT MAX(id) FROM tb_count)");
         $query = mysqli_num_rows($sql);
 
         if ($query > 0) {
             $data = mysqli_fetch_assoc($sql);
-            $response = ["status" => "success", "data" => $data];
+            $hitung = mysqli_fetch_assoc($count);
+            $response = ["status" => "success", "data" => $data, "hitung" => $hitung];
         } else {
             $response = ["status" => "error", "message" => "Token not found"];
         }
@@ -32,4 +34,3 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         echo json_encode($response);
     }
 }
-?>

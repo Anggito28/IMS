@@ -3,7 +3,7 @@
 $dbhost = 'localhost';
 $dbuser = 'root';
 $password = '';
-$dbname = 'ims_project1';
+$dbname = 'ims_project';
 
 $dbconnect = new mysqli($dbhost, $dbuser, $password, $dbname);
 

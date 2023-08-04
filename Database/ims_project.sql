@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 30 Jul 2023 pada 15.18
+-- Waktu pembuatan: 04 Agu 2023 pada 07.43
 -- Versi server: 10.4.28-MariaDB
 -- Versi PHP: 8.2.4
 
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `ims_project`
+-- Database: `ims_project1`
 --
 
 -- --------------------------------------------------------
@@ -49,15 +49,16 @@ INSERT INTO `tb_count` (`id`, `count`, `time`) VALUES
 CREATE TABLE `tb_kontrol` (
   `token` varchar(50) NOT NULL,
   `motor` int(1) NOT NULL,
-  `time` int(1) NOT NULL
+  `time` int(1) NOT NULL,
+  `aktifasi` int(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data untuk tabel `tb_kontrol`
 --
 
-INSERT INTO `tb_kontrol` (`token`, `motor`, `time`) VALUES
-('12345', 1, 1);
+INSERT INTO `tb_kontrol` (`token`, `motor`, `time`, `aktifasi`) VALUES
+('12345', 0, 0, 0);
 
 -- --------------------------------------------------------
 
