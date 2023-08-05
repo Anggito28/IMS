@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 $dbhost = 'localhost';
 $dbuser = 'root';
@@ -7,6 +7,6 @@ $dbname = 'ims_project';
 
 $dbconnect = new mysqli($dbhost, $dbuser, $password, $dbname);
 
-if($dbconnect->connect_error){
+if ($dbconnect->connect_error) {
     die('server down');
 }
